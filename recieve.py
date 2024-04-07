@@ -23,10 +23,17 @@ pixels = neopixel.NeoPixel(pixel_pin, num_pixels, brightness=0.3, auto_write=Fal
 RED = (255, 0, 0)
 GREEN = (0,255,0)
 BLUE = (0,0,255)
+YELLOW = (255,255,0)
+PURPLE = (0,255,255)
 
 
 pixels.fill(BLUE)
 pixels.show()
+
+def update_lights(color, brightness_level):
+    pixel.deinit()
+    pixels = neopixel.NeoPixel(pixel_pin, num_pixels, brightness=brightness_level, auto_write=False, pixel_order=ORDER)
+
 while True:
 
 
@@ -34,10 +41,31 @@ while True:
     if packet is not None:
         packet_text = str(packet, 'ascii')
         print('Received: {0}'.format(packet_text))
-        if packet_text == 'B1 hello':
+
+        #parse the payload
+        split_payload = packet_text.split(",")
+        print(split_payload[0])
+        payload_code = split_payload[0]
+        brightness_value = split_payload[1]
+        #not sure why you need to use eval to covert this into an int, but it works
+        brightness_value_int = eval(brightness_value)
+        print(brightness_value)
+        
+
+        #reset the brightness
+        pixels.deinit()
+        pixels = neopixel.NeoPixel(pixel_pin, num_pixels, brightness=brightness_value_int, auto_write=False, pixel_order=ORDER)
+
+        if payload_code == 'B1':
             print('we have green lights')
             pixels.fill(GREEN)
-        if packet_text == 'B2 hello':
+        if payload_code == 'B2':
             pixels.fill(RED)
+            print('we have red lights')
+        if payload_code == 'B3':
+            pixels.fill(YELLOW)
+            print('we have red lights')
+        if payload_code == 'B4':
+            pixels.fill(PURPLE)
             print('we have red lights')
         pixels.show()
