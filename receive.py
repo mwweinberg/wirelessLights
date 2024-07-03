@@ -25,6 +25,7 @@ GREEN = (0,255,0)
 BLUE = (0,0,255)
 YELLOW = (255,255,0)
 PURPLE = (0,255,255)
+BLACK = (0,0,0)
 
 
 pixels.fill(BLUE)
@@ -57,15 +58,15 @@ while True:
         pixels = neopixel.NeoPixel(pixel_pin, num_pixels, brightness=brightness_value_int, auto_write=False, pixel_order=ORDER)
 
         if payload_code == 'B1':
-            print('we have green lights')
-            pixels.fill(GREEN)
+            print('lights are off')
+            pixels.fill(BLACK)
         if payload_code == 'B2':
-            pixels.fill(RED)
-            print('we have red lights')
+            pixels.fill(GREEN)
+            print('we have green lights')
         if payload_code == 'B3':
             pixels.fill(YELLOW)
-            print('we have red lights')
+            print('we have yellow lights')
         if payload_code == 'B4':
-            pixels.fill(PURPLE)
+            pixels.fill(RED)
             print('we have red lights')
         pixels.show()
