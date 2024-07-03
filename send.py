@@ -20,6 +20,7 @@ switch.direction = Direction.INPUT
 switch.pull = Pull.UP
 
 #buttons
+
 button1 = DigitalInOut(board.D12)
 button1.direction = Direction.INPUT
 button1.pull = Pull.UP
@@ -27,6 +28,14 @@ button1.pull = Pull.UP
 button2 = DigitalInOut(board.D11)
 button2.direction = Direction.INPUT
 button2.pull = Pull.UP
+
+button3 = DigitalInOut(board.D9)
+button3.direction = Direction.INPUT
+button3.pull = Pull.UP
+
+button4 = DigitalInOut(board.D6)
+button4.direction = Direction.INPUT
+button4.pull = Pull.UP
 
 
 #potentiometer
@@ -46,10 +55,13 @@ print("Started!")
 while True:
     
     #potentiometer 
-    #converts the mapped reading to a value between 0 and 1, limite to 2 decimal places
+    #converts the mapped reading to a value between 0 and 1, limited to 2 decimal places
     #adjust the first two number arguments to reflect the max and min of the potentiometer reading
     #if this becomes problematic, you can always just hard code a value
-    adjusted_potentiometer_reading = str(round(map_range(get_voltage(analog_in), 0, .4, 0, 1),2))
+
+    adjusted_potentiometer_reading = str(round(map_range(get_voltage(analog_in), 0, 3.2, 0, 1),2))
+    #this line is just to calibrate the values above
+    print(get_voltage(analog_in))
     print(adjusted_potentiometer_reading)
 
     if switch.value == True:
@@ -58,7 +70,7 @@ while True:
             print("off1")
         if button1.value == False:
             payload("B1", adjusted_potentiometer_reading)
-            # print("on1")
+            print("on1")
             # rfm69.send('B1 hello')
             # #cut this after testing -  just so you can see
             # time.sleep(.5)
@@ -66,29 +78,41 @@ while True:
             print("off2")
         if button2.value == False:
             payload("B2", adjusted_potentiometer_reading)
-            # print("on2")
+            print("on2")
             # rfm69.send('B2 hello')
             # #cut this after testing -  just so you can see
             # time.sleep(.5)
+        if button3.value == False:
+            payload("B3", adjusted_potentiometer_reading)
+            print("on3")
+        if button4.value == False:
+            payload("B4", adjusted_potentiometer_reading)
+            print("on4")
 
     elif switch.value == False:
         print("false")
         if button1.value == True:
             print("off3")
         if button1.value == False:
-            payload("B3", adjusted_potentiometer_reading)
+            payload("B5", adjusted_potentiometer_reading)
             # print("on3")
             # rfm69.send('B3 hello')
             # #cut this after testing -  just so you can see
             # time.sleep(.5)
         if button2.value == True:
-            print("off4")
+            print("off5")
         if button2.value == False:
-            payload("B4", adjusted_potentiometer_reading)
+            payload("B6", adjusted_potentiometer_reading)
             # print("on4")
             # rfm69.send('B4 hello')
             # #cut this after testing -  just so you can see
             # time.sleep(.5)
+        if button3.value == False:
+            payload("B7", adjusted_potentiometer_reading)
+            print("on7")
+        if button4.value == False:
+            payload("B8", adjusted_potentiometer_reading)
+            print("on8")
 
     #else:
         #print("broken")
