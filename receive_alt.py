@@ -57,16 +57,16 @@ while True:
         pixels.deinit()
         pixels = neopixel.NeoPixel(pixel_pin, num_pixels, brightness=brightness_value_int, auto_write=False, pixel_order=ORDER)
 
-        if payload_code == 'B1':
+        if payload_code == 'B5':
             print('lights are off')
             color_state = BLACK
-        if payload_code == 'B2':
+        if payload_code == 'B6':
             color_state = GREEN
             print('we have green lights')
-        if payload_code == 'B3':
+        if payload_code == 'B7':
             color_state = YELLOW
             print('we have yellow lights')
-        if payload_code == 'B4':
+        if payload_code == 'B8':
             color_state = RED
             print('we have red lights')
         pixels.fill(color_state)
