@@ -2,7 +2,7 @@
 
 This is hardware and software to create remote controlled speaker notification lights.  There are two different lights, both of which are controlled from the same controller.  You can toggle which lights you are controlling with a switch on the controller itself.  You can also set the brightness of the lights.
 
-![animated gif of the lights in use](/wirelessLights.gif)
+![animated gif of the lights in use](wirelessLights.gif)
 
 ## Controller buttons
 
