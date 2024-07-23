@@ -2,7 +2,7 @@
 
 This is hardware and software to create remote controlled speaker notification lights.  There are two different lights, both of which are controlled from the same controller.  You can toggle which lights you are controlling with a switch on the controller itself.  You can also set the brightness of the lights.
 
-![animated gif of the lights in use](wirelessLights.gif)
+![animated gif of the lights in use](/images/wirelessLights.gif)
 
 ## Controller buttons
 
@@ -13,6 +13,14 @@ Off, Red, Yellow, Green
 ### Bottom row (left to right)
 
 Power, toggle which light you are controlling, brightness setting of controlled light 
+
+### Wiring
+
+Controller
+![fritzing wiring diagram](/fritzing/send_bb.png)
+
+Light
+![fritzing wiring diagram](/fritzing/receive_bb.png)
 
 
 # Building/editing
@@ -42,3 +50,6 @@ This folder has a simple send/recieve script pair that works for testing.  If ev
 
 in /fritzing
 
+# License
+
+![HW: CERN-OHL-P-2.0; SW: MIT; DOC: CC-BY-4.0](/images/license.png)
