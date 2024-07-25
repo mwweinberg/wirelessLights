@@ -4,6 +4,12 @@ This is hardware and software to create remote controlled speaker notification l
 
 ![animated gif of the lights in use](/images/wirelessLights.gif)
 
+**[OSHWA CERTIFIED OPEN SOURCE HARDWARE!](https://certification.oshwa.org/us002664.html)**
+
+![certification mark UID US002664](/images/certification-mark-US002664-stacked.png)
+
+
+
 ## Controller buttons
 
 ### Top row (left to right, controls color of light)
