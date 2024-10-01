@@ -50,6 +50,12 @@ you also need to add the /lib files when you are setting up a new board
 
 #/basic_board_exchange_scripts?
 
+# TODO
+
+- redesign controller to replace the 4 push buttons with a rotary switch + 1 "transmit" button.  These can be higher quality than the current buttons and this configuration will not take up any additional space on the controller
+- reset dimmer switch so that turning it all the way down will not set brightness fully to 0. That is causing confusion.
+- Add startup animation to lights to give a quick readout of the current battery level?
+
 This folder has a simple send/recieve script pair that works for testing.  If everything breaks you can always roll back to them.
 
 # Circuit diagrams 
