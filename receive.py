@@ -1,6 +1,7 @@
 import board
 import busio
 import digitalio
+import analogio
 spi = busio.SPI(board.SCK, MOSI=board.MOSI, MISO=board.MISO)
 
 cs = digitalio.DigitalInOut(board.RFM69_CS)
@@ -9,6 +10,8 @@ reset = digitalio.DigitalInOut(board.RFM69_RST)
 import adafruit_rfm69
 rfm69 = adafruit_rfm69.RFM69(spi, cs, reset, 915.0)
 
+#for measuring power
+vbat_voltage = analogio.AnalogIn(board.D9)
 
 #for pixels
 import time
@@ -27,9 +30,45 @@ YELLOW = (255,255,0)
 PURPLE = (0,255,255)
 BLACK = (0,0,0)
 
-color_state = BLUE
-pixels.fill(color_state)
+#original startup
+# color_state = BLUE
+# pixels.fill(color_state)
+# pixels[2] = RED
+# pixels.show()
+
+#get voltage
+def get_voltage(pin):
+    return (pin.value * 3.3 / 65536 * 2)
+battery_voltage = get_voltage(vbat_voltage)
+print("vbat voltage: ")
+print(battery_voltage)
+
+#illuminate lights at startup to show voltage
+#according to the site below, "LiPoly batteries are 'maxed out' at 4.2V and stick around 3.7V for much of the battery life, then slowly sink down to 3.2V or so before the protection circuitry cuts it off. By measuring the voltage you can quickly tell when you're heading below 3.7V."
+#https://learn.adafruit.com/adafruit-feather-m0-radio-with-rfm69-packet-radio/power-management
+
+#move the red dot according to what the voltage is
+pixels.fill(BLUE)
+if battery_voltage > 4.1:
+    pixels[7] = RED
+elif battery_voltage > 4:
+    pixels[6] = RED
+elif battery_voltage > 3.9:
+    pixels[5] = RED
+elif battery_voltage > 3.7:
+    pixels[4] = RED
+elif battery_voltage > 3.6:
+    pixels[3] = RED
+elif battery_voltage > 3.3:
+    pixels[2] = RED
+elif battery_voltage > 3.1:
+    pixels[1] = RED
+else:
+    pixels[0] = RED
+
+
 pixels.show()
+
 
 def update_lights(color, brightness_level):
     pixel.deinit()
@@ -57,16 +96,16 @@ while True:
         pixels.deinit()
         pixels = neopixel.NeoPixel(pixel_pin, num_pixels, brightness=brightness_value_int, auto_write=False, pixel_order=ORDER)
 
-        if payload_code == 'B1':
+        if payload_code == 'B5':
             print('lights are off')
             color_state = BLACK
-        if payload_code == 'B2':
+        if payload_code == 'B6':
             color_state = GREEN
             print('we have green lights')
-        if payload_code == 'B3':
+        if payload_code == 'B7':
             color_state = YELLOW
             print('we have yellow lights')
-        if payload_code == 'B4':
+        if payload_code == 'B8':
             color_state = RED
             print('we have red lights')
         pixels.fill(color_state)
